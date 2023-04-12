@@ -9,8 +9,8 @@
 
 #define LINESIZE 1024
 
-void codificar_mensagem_original(char *messagem_original, lista_t *chaves, char *saida);
-void codificar_palavra(char *palavra, FILE *arq_s, lista_t *chaves);
+int codificar_mensagem_original(char *messagem_original, lista_t *chaves, char *saida);
+int codificar_palavra(char *palavra, FILE *arq_s, lista_t *chaves);
 int gerar_num(Node *aux);
 
 

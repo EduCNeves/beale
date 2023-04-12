@@ -1,5 +1,8 @@
 #include "liblistanum.h" 
 
+#include <stdio.h>
+#include <stdlib.h>
+
 void insere_numero(lista_n *lista, int num){
    
    NodeN *node = criaNode_n();
@@ -40,5 +43,21 @@ void exibe_lista_n(lista_n *lista){
       printf("%d ", aux->num);
       aux = aux->prox; 
    }
+   
+}
+
+int buscar_lista_n(lista_n *lista, char *numero){
+   
+   NodeN *aux = lista->inicio;
+   int elemento = atoi(numero);
+   // printf("numero:%d\n", elemento);
+
+   while (aux){
+      if (aux->num == elemento){
+         return 0;
+      }
+      aux = aux->prox;
+   }
+   return 1;
    
 }

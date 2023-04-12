@@ -1,5 +1,5 @@
 CFLAGS = -Wall -g -O2 -std=c99 -Wno-unused-result
-LIB = leitura.o liblistacarect.o liblistanum.o libimprimir.o libseparar.o libcodificar.o
+LIB = leitura.o liblistacarect.o liblistanum.o libimprimir.o libseparar.o libcodificar.o libdecodificar.o
 
 all: main
 
@@ -20,6 +20,9 @@ libseparar.o: libseparar.c libseparar.h
 
 libcodificar.o: libcodificar.c libcodificar.h
 	gcc $(CFLAGS) -c libcodificar.c
+
+libdecodificar.o: libdecodificar.c libdecodificar.h
+	gcc $(CFLAGS) -c libdecodificar.c
 
 leitura.o: leitura.c leitura.h
 	gcc $(CFLAGS) -c leitura.c

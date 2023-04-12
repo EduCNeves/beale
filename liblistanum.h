@@ -20,6 +20,7 @@ void insere_numero(lista_n *lista, int num);
 lista_n *cria_lista_n();
 NodeN *criaNode_n();
 void exibe_lista_n(lista_n *lista);
+int buscar_lista_n(lista_n *lista, char *elemento);
 
 
 #endif

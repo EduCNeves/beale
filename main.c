@@ -8,6 +8,8 @@
 #include "liblistacarect.h"
 #include "libimprimir.h"
 #include "libcodificar.h"
+#include "libdecodificar.h"
+
 
 
 #define LINESIZE 1024
@@ -73,29 +75,33 @@ int main(int argc, char **argv){
    if (edu == 0){
     
         ler_livro_cifra(livro_cifra, chaves);
-        codificar_mensagem_original(mensagem_original, chaves, saida);
+        int cod = codificar_mensagem_original(mensagem_original, chaves, saida);
+        if (cod == 1){
+            printf("não é possivel codificar essa mensagem\n");
+        }
         imprimir_arquivos_de_chaves(arquivo_de_chaves, chaves);
 
     }
     else {
         printf("Decodificar: %d\n", edu);
         if (cb == 0){
-            printf(" %d\n", cb);
-            printf("-i %s\n", mensagem_codificada);
-            printf("-c %s\n", arquivo_de_chaves);
-            printf("-o %s\n", saida);
-
+            ler_arquivos_de_chaves(arquivo_de_chaves,chaves);
+            exibe_lista_c(chaves);
+            int deco = decodificar_mensagem_codificada(mensagem_codificada, chaves, saida);
+            if (deco == 1){
+                printf("não é possivel decodificar essa mensagem\n");
+            }
         }
         else{
-            printf("%d\n", cb);
             ler_livro_cifra(livro_cifra, chaves);
-            printf("-i %s\n", mensagem_codificada);
-            printf("-o %s\n", saida);
+            int deco = decodificar_mensagem_codificada(mensagem_codificada, chaves, saida);
+            if (deco == 1){
+                printf("não é possivel decodificar essa mensagem\n");
+            }
         }
     }
 
-        // exibe_lista_c(chaves);
-        // printf("tam lista = %d", chaves->tam);
+
 
 
 

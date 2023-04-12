@@ -4,11 +4,12 @@
 #include<time.h>
 #include <string.h>
 
-void codificar_mensagem_original(char *messagem_original, lista_t *chaves, char *saida){
+int codificar_mensagem_original(char *messagem_original, lista_t *chaves, char *saida){
     
     FILE *arq_e, *arq_s;
     char *palavra = malloc (sizeof(char)*LINESIZE);
-    
+    int codi = 0;
+
     // abre o arquivo em leitura
     arq_e = fopen (messagem_original, "r") ;
     if ( ! arq_e ) {
@@ -24,11 +25,13 @@ void codificar_mensagem_original(char *messagem_original, lista_t *chaves, char 
     }
 
     fscanf (arq_e, "%s", palavra);
-    // codificar_palavra(palavra,arq_s, chaves);
 
     while (! feof (arq_e)) {
 
-        codificar_palavra(palavra,arq_s, chaves);
+        codi = codificar_palavra(palavra,arq_s, chaves);
+        if (codi == 1){
+            return 1;
+        }
 
         fscanf (arq_e, "%s", palavra);  // tenta ler a próxima linha
         if (! feof (arq_e)) 
@@ -36,13 +39,14 @@ void codificar_mensagem_original(char *messagem_original, lista_t *chaves, char 
 
     }
     fprintf (arq_s, "\n");
+    return 0;
  
     // fecha o arquivo
     fclose (arq_e);
     fclose(arq_s);
 }
 
-void codificar_palavra(char *palavra, FILE *arq_s, lista_t *chaves){
+int codificar_palavra(char *palavra, FILE *arq_s, lista_t *chaves){
 
     char c;
     int num;
@@ -54,15 +58,15 @@ void codificar_palavra(char *palavra, FILE *arq_s, lista_t *chaves){
 
         aux = buscar_lista_c(chaves,c);
         if (aux == NULL){
-            printf("errooo");
-            exit(1);
+           return 1;
         }
-        else{
-            printf("%c", c);        
+        else{        
             num = gerar_num(aux);
             fprintf(arq_s,"%d ", num);
         }
     }
+
+    return 0;
 
 }
 
