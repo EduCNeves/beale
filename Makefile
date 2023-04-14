@@ -30,6 +30,15 @@ leitura.o: leitura.c leitura.h
 main.o : main.c 
 	gcc $(CFLAGS) -c main.c
 
+runcode:
+	./beale  -e  -b livrocifra.txt -m MensagemOriginal.txt -o MensagemCodificada.txt -c chaves.txt 
+
+rundecodelivro:
+	./beale -d  -i MensagemCodificada.txt  -c chaves.txt  -o MensagemDecodificada.txt
+
+rundecodechaves:
+	./beale -d -i MensagemCodificada.txt -b livrocifra.txt -o MensagemDecodificada.txt
+
 clean:
 	rm -rf ./*.o
 	 

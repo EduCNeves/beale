@@ -21,9 +21,10 @@ typedef struct lista_t{
 
 lista_t *cria_lista_c();
 Node *criaNode();
-void insere_carcter(lista_t *lista, char elemento, int i);
+void insere_caracter(lista_t *lista, char elemento, int i);
 void exibe_lista_c(lista_t *lista);
 int listaVazia(lista_t *lista);
 Node *buscar_lista_c(lista_t *lista, char c);
+void libera_lista_c(lista_t *lista);
 
 #endif

@@ -30,6 +30,11 @@ int codificar_mensagem_original(char *messagem_original, lista_t *chaves, char *
 
         codi = codificar_palavra(palavra,arq_s, chaves);
         if (codi == 1){
+
+            free(palavra);
+            fclose (arq_e);
+            fclose(arq_s);
+            
             return 1;
         }
 
@@ -39,11 +44,14 @@ int codificar_mensagem_original(char *messagem_original, lista_t *chaves, char *
 
     }
     fprintf (arq_s, "\n");
-    return 0;
- 
+    
+    free(palavra);
     // fecha o arquivo
     fclose (arq_e);
     fclose(arq_s);
+    
+    return 0;
+
 }
 
 int codificar_palavra(char *palavra, FILE *arq_s, lista_t *chaves){

@@ -12,8 +12,8 @@ void insere_numero(lista_n *lista, int num){
    node->prox = lista->inicio;
    lista->inicio = node;
 
-   // printf("%p, %p, %p\n", node->prox, lista->inicio, node);
    lista->tam++;
+
    
 }
 
@@ -60,4 +60,15 @@ int buscar_lista_n(lista_n *lista, char *numero){
    }
    return 1;
    
+}
+
+void libera_lista_n(lista_n *lista){
+   NodeN *aux = lista->inicio;
+
+   while (lista->inicio != NULL){
+      lista->inicio = lista->inicio->prox;
+      free(aux);
+      aux = lista->inicio;
+   }
+   free(lista);
 }

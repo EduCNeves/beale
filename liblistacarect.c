@@ -4,24 +4,29 @@
 #include "liblistanum.h"
 
 
-void insere_carcter(lista_t *lista, char elemento, int i){
+void insere_caracter(lista_t *lista, char elemento, int i){
 
-   Node *node = criaNode();
-   node->letra = elemento;
-   insere_numero(node->listaN, i);
-
-   Node *aux = criaNode();
+   // Node *node = criaNode();
+   // node->letra = elemento;
+   // insere_numero(node->listaN, i);
 
    //se a lista é vazio
    if (listaVazia(lista) == 0){
 
+      Node *node = criaNode();
+      node->letra = elemento;
+      insere_numero(node->listaN, i);
       node->prox = NULL;
       lista->inicio = node;
       (lista->tam)++;
    
    }
    //é menor que o primeiro
-   else if (node->letra < lista->inicio->letra){
+   else if (elemento < lista->inicio->letra){
+
+      Node *node = criaNode();
+      node->letra = elemento;
+      insere_numero(node->listaN, i);
       
       node->prox = lista->inicio;
       lista->inicio = node;
@@ -30,7 +35,11 @@ void insere_carcter(lista_t *lista, char elemento, int i){
    }
 
    //se for igual o primiero 
-   else if (node->letra == lista->inicio->letra){
+   else if (elemento == lista->inicio->letra){
+
+      // libera_lista_n(node->listaN);
+      // free(node);
+
       insere_numero(lista->inicio->listaN, i);
       // printf("igual");
 
@@ -38,21 +47,31 @@ void insere_carcter(lista_t *lista, char elemento, int i){
 
    //inserir no meio ou no final 
    else {
-      aux = lista->inicio;
-      while ( aux->prox && (node->letra >= aux->prox->letra) ){
+      Node *aux = lista->inicio;
+      while ( aux->prox && (elemento >= aux->prox->letra) ){
          aux = aux->prox;
       }
-      if (node->letra == aux->letra){
+      if (elemento == aux->letra){
+         
+         // libera_lista_n(node->listaN);
+         // free(node);
+         
          insere_numero(aux->listaN, i);
-         // printf("igual");
       }
       else {
+
+         Node *node = criaNode();
+         node->letra = elemento;
+         insere_numero(node->listaN, i);
+
          node->prox = aux->prox;
          aux->prox = node;
          (lista->tam)++;
       }
       
    }
+
+
 }
 
 
@@ -99,23 +118,22 @@ Node *buscar_lista_c(lista_t *lista, char c){
 
 }
 
-
-
-/*-----------------GERAL DAS DUAS LISTAS ------------------*/
-
-// void libera_lista(lista_t *lista){
+void libera_lista_c(lista_t *lista){
    
-//    Node *aux = lista->inicio;
+   Node *aux = lista->inicio;
 
-//    while (lista->inicio == NULL){
-//       lista->inicio = lista->inicio->prox;
-//       free(aux->nome);
-//       free(aux->tipo);
-//       free(aux);
-//       aux = lista->inicio;
-//    }
-//    free(lista);
-// }
+   while (lista->inicio != NULL){
+
+      lista->inicio = lista->inicio->prox;
+      // free(aux->letra);
+
+      libera_lista_n(aux->listaN);
+      free(aux);
+      aux = lista->inicio;
+   
+   }
+   free(lista);
+}
 
 void exibe_lista_c(lista_t *lista){
 

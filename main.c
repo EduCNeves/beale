@@ -37,7 +37,7 @@ int main(int argc, char **argv){
 
 
     int edu = -1; //variavel para ver se é para codificar ou decodificar 
-    int cb = -1;
+    int cb = -1; //variavel para ver se é para ler o livro de cifra ou o arquivo de chaves
     int option;
 
     while ( (option = getopt(argc, argv, "deb:m:o:c:i:")) != -1)
@@ -83,10 +83,8 @@ int main(int argc, char **argv){
 
     }
     else {
-        printf("Decodificar: %d\n", edu);
         if (cb == 0){
             ler_arquivos_de_chaves(arquivo_de_chaves,chaves);
-            exibe_lista_c(chaves);
             int deco = decodificar_mensagem_codificada(mensagem_codificada, chaves, saida);
             if (deco == 1){
                 printf("não é possivel decodificar essa mensagem\n");
@@ -101,10 +99,13 @@ int main(int argc, char **argv){
         }
     }
 
+    libera_lista_c(chaves);
 
-
-
-
+    free(livro_cifra);
+    free(mensagem_original);
+    free(saida);
+    free(arquivo_de_chaves);
+    free(mensagem_codificada);
     
     return 0;
 }

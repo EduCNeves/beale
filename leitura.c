@@ -20,13 +20,15 @@ void ler_livro_cifra(char *livro_cifra, lista_t *chaves){
     fscanf (arq, "%s", palavra);
     while (! feof (arq)) {
 
-        elem = separa_caractere(palavra); //separa 
+        elem = separa_caractere(palavra); //separa o caractere da palavra
 
-        insere_carcter(chaves, elem, i);
+        insere_caracter(chaves, elem, i);
 
         fscanf (arq, "%s", palavra);  // tenta ler a próxima linha
         i++;
     }
+
+    free(palavra);
  
     // fecha o arquivo
     fclose (arq);
@@ -48,7 +50,7 @@ void ler_arquivos_de_chaves(char *arquivo_de_chaves, lista_t *chaves){
 
     fscanf (arq, "%s", palavra);
     // printf("palavra: %s\n", palavra);
-    insere_carcter(chaves,palavra[0],-1);
+    insere_caracter(chaves,palavra[0],-1);
     aux = chaves->inicio;
     while (! feof (arq)) {
 
@@ -56,7 +58,7 @@ void ler_arquivos_de_chaves(char *arquivo_de_chaves, lista_t *chaves){
         // printf("palavra: %s\n", palavra);
         
         if(palavra[1] == ':'){
-            insere_carcter(chaves,palavra[0], -1);
+            insere_caracter(chaves,palavra[0], -1);
             aux = aux->prox;
         }
         else {
@@ -67,6 +69,8 @@ void ler_arquivos_de_chaves(char *arquivo_de_chaves, lista_t *chaves){
         }
 
     } 
+
+    free(palavra);
     // fecha o arquivo
     fclose (arq);
 
