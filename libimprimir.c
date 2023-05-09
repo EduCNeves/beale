@@ -11,9 +11,9 @@ void imprimir_arquivos_de_chaves(char *arquivo_de_chaves, lista_t *chaves){
     
     arq = fopen (arquivo_de_chaves, "w");
     
-    if ( ! arq ){
+    if (!arq){
         perror ("Erro ao abrir/criar arquivo x");
-        exit (1) ; // encerra o programa com status 1
+        exit (1) ; //encerra o programa com status 1
     }
 
     Node *aux = chaves->inicio;

@@ -10,7 +10,7 @@ int codificar_mensagem_original(char *messagem_original, lista_t *chaves, char *
     char *palavra = malloc (sizeof(char)*LINESIZE);
     int codi = 0;
 
-    // abre o arquivo em leitura
+    // abre o arquivo da mensagem original em leitura
     arq_e = fopen (messagem_original, "r") ;
     if ( ! arq_e ) {
      perror ("Erro ao abrir arquivo") ;
@@ -30,15 +30,13 @@ int codificar_mensagem_original(char *messagem_original, lista_t *chaves, char *
 
         codi = codificar_palavra(palavra,arq_s, chaves);
         if (codi == 1){
-
             free(palavra);
             fclose (arq_e);
             fclose(arq_s);
-            
             return 1;
         }
 
-        fscanf (arq_e, "%s", palavra);  // tenta ler a próxima linha
+        fscanf (arq_e, "%s", palavra);  //le a proxima palavra
         if (! feof (arq_e)) 
             fprintf(arq_s,"-1 ");
 
@@ -63,6 +61,11 @@ int codificar_palavra(char *palavra, FILE *arq_s, lista_t *chaves){
     for (int i = 0; i < strlen(palavra); i++){
         
         c = palavra[i];
+        
+        //tornar as letras minusculas
+        if(c >= 'A' && c <= 'Z'){
+            c += 32;
+        }
 
         aux = buscar_lista_c(chaves,c);
         if (aux == NULL){
@@ -91,4 +94,3 @@ int gerar_num(Node *aux){
     return node->num;
 
 }
-

@@ -60,7 +60,6 @@ int decodificar_numero(char *numero, FILE *arq_s, lista_t *chaves){
     while (aux && (flag == 1)){
 
         flag = buscar_lista_n(aux->listaN, numero);
-        // printf("aquiii %d", i);
         if (flag == 1){
             aux = aux->prox;
         }

@@ -50,7 +50,6 @@ int buscar_lista_n(lista_n *lista, char *numero){
    
    NodeN *aux = lista->inicio;
    int elemento = atoi(numero);
-   // printf("numero:%d\n", elemento);
 
    while (aux){
       if (aux->num == elemento){

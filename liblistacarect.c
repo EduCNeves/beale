@@ -6,10 +6,6 @@
 
 void insere_caracter(lista_t *lista, char elemento, int i){
 
-   // Node *node = criaNode();
-   // node->letra = elemento;
-   // insere_numero(node->listaN, i);
-
    //se a lista é vazio
    if (listaVazia(lista) == 0){
 
@@ -36,13 +32,7 @@ void insere_caracter(lista_t *lista, char elemento, int i){
 
    //se for igual o primiero 
    else if (elemento == lista->inicio->letra){
-
-      // libera_lista_n(node->listaN);
-      // free(node);
-
       insere_numero(lista->inicio->listaN, i);
-      // printf("igual");
-
    }
 
    //inserir no meio ou no final 
@@ -52,10 +42,6 @@ void insere_caracter(lista_t *lista, char elemento, int i){
          aux = aux->prox;
       }
       if (elemento == aux->letra){
-         
-         // libera_lista_n(node->listaN);
-         // free(node);
-         
          insere_numero(aux->listaN, i);
       }
       else {
@@ -70,7 +56,6 @@ void insere_caracter(lista_t *lista, char elemento, int i){
       }
       
    }
-
 
 }
 
@@ -125,7 +110,6 @@ void libera_lista_c(lista_t *lista){
    while (lista->inicio != NULL){
 
       lista->inicio = lista->inicio->prox;
-      // free(aux->letra);
 
       libera_lista_n(aux->listaN);
       free(aux);

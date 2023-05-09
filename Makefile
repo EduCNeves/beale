@@ -1,5 +1,5 @@
 CFLAGS = -Wall -g -O2 -std=c99 -Wno-unused-result
-LIB = leitura.o liblistacarect.o liblistanum.o libimprimir.o libseparar.o libcodificar.o libdecodificar.o
+LIB = libleitura.o liblistacarect.o liblistanum.o libimprimir.o libcodificar.o libdecodificar.o
 
 all: main
 
@@ -15,29 +15,17 @@ liblistanum.o: liblistanum.c liblistanum.h
 libimprimir.o: libimprimir.c libimprimir.h
 	gcc $(CFLAGS) -c libimprimir.c
 
-libseparar.o: libseparar.c libseparar.h
-	gcc $(CFLAGS) -c libseparar.c
-
 libcodificar.o: libcodificar.c libcodificar.h
 	gcc $(CFLAGS) -c libcodificar.c
 
 libdecodificar.o: libdecodificar.c libdecodificar.h
 	gcc $(CFLAGS) -c libdecodificar.c
 
-leitura.o: leitura.c leitura.h
-	gcc $(CFLAGS) -c leitura.c
+libleitura.o: libleitura.c libleitura.h
+	gcc $(CFLAGS) -c libleitura.c
 
 main.o : main.c 
 	gcc $(CFLAGS) -c main.c
-
-runcode:
-	./beale  -e  -b livrocifra.txt -m MensagemOriginal.txt -o MensagemCodificada.txt -c chaves.txt 
-
-rundecodelivro:
-	./beale -d  -i MensagemCodificada.txt  -c chaves.txt  -o MensagemDecodificada.txt
-
-rundecodechaves:
-	./beale -d -i MensagemCodificada.txt -b livrocifra.txt -o MensagemDecodificada.txt
 
 clean:
 	rm -rf ./*.o

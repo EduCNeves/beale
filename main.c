@@ -4,17 +4,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "leitura.h"
+#include "libleitura.h"
 #include "liblistacarect.h"
 #include "libimprimir.h"
 #include "libcodificar.h"
 #include "libdecodificar.h"
 
-
-
 #define LINESIZE 1024
-
-
 
 int main(int argc, char **argv){
 
@@ -40,16 +36,17 @@ int main(int argc, char **argv){
     int cb = -1; //variavel para ver se é para ler o livro de cifra ou o arquivo de chaves
     int option;
 
+    // lendo os parametros
     while ( (option = getopt(argc, argv, "deb:m:o:c:i:")) != -1)
         switch (option){
-        case 'e':
+        case 'e'://codificar
             edu = 0;
             break;
-        case 'd':
+        case 'd'://decodificar
             edu = 1;
             break;
         case 'b':
-            cb = 1;
+            cb = 1; //saber se vai decodificar com o livro de cifra ou com o arquivo de chaves
             strcpy(livro_cifra, optarg);
             break;
         case 'm':
@@ -59,7 +56,7 @@ int main(int argc, char **argv){
             strcpy(saida, optarg);
             break;
         case 'c':
-            cb = 0;
+            cb = 0; //saber se vai decodificar com o livro de cifra ou com o arquivo de chaves
             strcpy(arquivo_de_chaves, optarg);
             break;
         case 'i':
@@ -70,37 +67,51 @@ int main(int argc, char **argv){
             exit(1);
         }
 
+    // crianco a lista de chaves
     lista_t *chaves = cria_lista_c();
 
+    // testando se é para codificar ou decodificar
    if (edu == 0){
-    
+        //codificando a mensagem
         ler_livro_cifra(livro_cifra, chaves);
         int cod = codificar_mensagem_original(mensagem_original, chaves, saida);
         if (cod == 1){
             printf("não é possivel codificar essa mensagem\n");
         }
+        else {
+            printf("mensagem codificada com sucesso\n");
+        }
         imprimir_arquivos_de_chaves(arquivo_de_chaves, chaves);
 
     }
     else {
+        //decodificando a mensagem
         if (cb == 0){
+            //decodificando com o arquivo de chaves
             ler_arquivos_de_chaves(arquivo_de_chaves,chaves);
             int deco = decodificar_mensagem_codificada(mensagem_codificada, chaves, saida);
             if (deco == 1){
                 printf("não é possivel decodificar essa mensagem\n");
             }
+            else {
+                printf("mensagem decodificada com sucesso\n");
+            }
         }
         else{
+            //decodificando com o livro de cifra
             ler_livro_cifra(livro_cifra, chaves);
             int deco = decodificar_mensagem_codificada(mensagem_codificada, chaves, saida);
             if (deco == 1){
                 printf("não é possivel decodificar essa mensagem\n");
             }
+            else {
+                printf("mensagem decodificada com sucesso\n");
+            }
         }
     }
 
+    // liberando a memoria
     libera_lista_c(chaves);
-
     free(livro_cifra);
     free(mensagem_original);
     free(saida);
