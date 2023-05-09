@@ -5,9 +5,15 @@ Compilação:
     $ make
 
 Formas de executar:
+
+- Codificar uma mensagem qualquer contida em um arquivo ASCII usando um livro cifra:
     
-    $ make runcode
+    $ ./beale -e -b "LivroCifra" -m "MensagemOriginal" -o "MensagemCodificada" -c "ArquivoDeChaves"
     
-    $ make rundecodelivro
+- Decodificar uma mensagem, usando um arquivo de códigos:
     
-    $ make rundecodechaves
+    $ make ./beale -d -i "MensagemCodificada"  -c "ArquivoDeChaves" -o "MensagemDecodificada"
+
+- Decodificar uma mensagem usando o livro cifra:
+    
+    $ ./beale -d -i "MensagemCodificada" -b "LivroCifra" -o "MensagemDecodificada"
